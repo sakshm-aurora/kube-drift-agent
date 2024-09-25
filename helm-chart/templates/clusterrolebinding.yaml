@@ -1,0 +1,14 @@
+# helm-chart/templates/clusterrolebinding.yaml
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kube-drift-agent.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kube-drift-agent.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "kube-drift-agent.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io

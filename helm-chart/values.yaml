@@ -1,0 +1,31 @@
+# helm-chart/values.yaml
+
+replicaCount: 1
+
+image:
+  repository: kube-drift-agent
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+  
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: ""
+
+rbac:
+  create: true
+
+clusterRole:
+  create: true
+
+centralDashboard:
+  url: "http://192.168.29.119:8000"
+  apiKey: "720806bf0756ca56200e03697475a43b99718b25ac317b537359221119643e6f"
+
+includeSecretsOption: "exclude"
+
+resources: {}

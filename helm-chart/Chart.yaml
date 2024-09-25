@@ -1,0 +1,8 @@
+# helm-chart/Chart.yaml
+
+apiVersion: v2
+name: kube-drift-agent
+description: A Helm chart for Kubernetes Drift Detection Agent
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

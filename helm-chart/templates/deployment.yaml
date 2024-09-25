@@ -1,0 +1,32 @@
+# helm-chart/templates/deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kube-drift-agent.fullname" . }}
+  labels:
+    app: {{ include "kube-drift-agent.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "kube-drift-agent.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "kube-drift-agent.name" . }}
+    spec:
+      serviceAccountName: {{ include "kube-drift-agent.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CENTRAL_DASHBOARD_URL
+              value: {{ .Values.centralDashboard.url | quote }}
+            - name: API_KEY
+              value: {{ .Values.centralDashboard.apiKey | quote }}
+            - name: INCLUDE_SECRETS_OPTION
+              value: {{ .Values.includeSecretsOption | quote }}
+          command: ["python"]
+          args: ["-m", "agent.main"]
